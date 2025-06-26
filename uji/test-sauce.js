@@ -6,20 +6,29 @@ describe('SauceDemo E2E Automation - Login & Sort Products', function () {
     this.timeout(30000); 
     let driver;
 
+    before(async function () {
+        console.log('Logging awal untuk menandai dimulainya rangkaian pengujian');
+
+    });
+
     beforeEach(async function () {
-        // Inisialisasi Chrome driver
         driver = await new Builder().forBrowser('chrome').build();
-        await driver.manage().window().maximize(); 
-        await driver.get('https://www.saucedemo.com'); 
+        await driver.manage().window().maximize();
+        await driver.get('https://www.saucedemo.com');
+        console.log('Ini hook BeforeEach, membuka halaman login SauceDemo');
     });
 
     afterEach(async function () {
         if (driver) {
-            await driver.quit(); 
+            await driver.quit();
+            console.log('Ini hook AfterEach, menutup browser setelah setiap pengujian');
         }
     });
 
-    
+    after(async function () {
+        console.log('Melakukan logging akhir atau membuat laporan hasil pengujian');
+    });
+
     it('Harus berhasil login dengan kredensial yang valid', async function () {
         
         let inputUsername = await driver.findElement(By.css('[data-test="username"]'));
